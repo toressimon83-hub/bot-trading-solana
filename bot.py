@@ -1,12 +1,28 @@
+
+import os
 import time
 import requests
-import os
 import sqlite3
 import warnings
 import hmac
 import hashlib
 import threading
 from datetime import datetime
+from flask import Flask
+
+# Servidor web integrado para evitar que el hosting apague el bot
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot de Trading Activo"
+
+def run():
+    puerto = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=puerto)
+
+t = threading.Thread(target=run)
+t.start()
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
